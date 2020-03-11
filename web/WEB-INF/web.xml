@@ -4,8 +4,59 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>Admin Serv</servlet-name>
+        <servlet-name>All user servlet</servlet-name>
         <servlet-class>controller.AllEmployeeServlet
         </servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>All user servlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Insert User</servlet-name>
+        <servlet-class>controller.InsertServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Insert User</servlet-name>
+        <url-pattern>/insert</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>New User</servlet-name>
+        <servlet-class>controller.NewEmployeeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>New User</servlet-name>
+        <url-pattern>/new</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Delete servlet</servlet-name>
+        <servlet-class>controller.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Delete servlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Edit servlet</servlet-name>
+        <servlet-class>controller.EditEmployeeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Edit servlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Update servlet</servlet-name>
+        <servlet-class>controller.UpdateEmployeeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Update servlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

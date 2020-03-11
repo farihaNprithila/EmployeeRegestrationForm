@@ -4,9 +4,7 @@ import model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class EmployeeDAO {
 
@@ -16,7 +14,7 @@ public class EmployeeDAO {
     public EmployeeDAO(){}
     //sql commands
     private static final String insert_users="INSERT INTO employee"+" (first_name,last_name,username,password,address,contact) VALUES "+" (?, ?, ?, ?, ?, ?);";
-    private static final String select_user_by_id="select id,first_name,last_name,username,password,address,contact from users where id=?";
+    private static final String select_user_by_id="select id,first_name,last_name,username,password,address,contact from employee where id=?";
     private static final String select_all_users="select * from employee";
     private static final String delete_users="delete from employee where id = ?;";
     private static final String update_users="update employee set first_name = ?, last_name =?, username =? password = ?, address =?, contact =? where id = ?;";
@@ -24,20 +22,21 @@ public class EmployeeDAO {
     /*public static void main(String [] args){
         Connection connection=getConnection();
     }*/
-  /*  public static void main(String[] args) throws SQLException {
+   // public static void main(String[] args) throws SQLException {
         //Employee employee=new Employee("Fariha","Nawaz","FNP","123","Mirpur-2","019********");
         //insertEmployee(employee);
-        List<Employee> e=selectAllEmployee();
-        Iterator<Employee> itr = e.listIterator();
-        while (itr.hasNext()) {
-            System.out.println(itr.next());
-        }
+        //List<Employee> e=selectAllEmployee();
+        //Iterator<Employee> itr = e.listIterator();
+        //while (itr.hasNext()) {
+            //System.out.println(itr.next());
+        //}
+       // deleteEmployee(6);
 
 
-    }*/
+    //}
 
     //connection with the database
-    protected static Connection getConnection(){
+    protected Connection getConnection(){
         Connection connection=null;
         try{
 
@@ -55,7 +54,7 @@ public class EmployeeDAO {
         return connection;
     }
     //Insert users
-    public static void insertEmployee(Employee user) throws SQLException {
+    public void insertEmployee(Employee user) throws SQLException {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insert_users)) {
@@ -76,7 +75,7 @@ public class EmployeeDAO {
     //for updating the data
 
     public boolean updateEmployee(Employee user)throws SQLException{
-        boolean rowUpdate;
+        boolean value;
         try(Connection connection=getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(update_users)){
             preparedStatement.setString(1, user.getFirstName());
@@ -86,14 +85,13 @@ public class EmployeeDAO {
             preparedStatement.setString(5, user.getAddress());
             preparedStatement.setString(6, user.getContact());
             preparedStatement.setInt(7,user.getId());
-
-            rowUpdate=preparedStatement.executeUpdate()>0;
+            value=preparedStatement.executeUpdate()>0;
         }
-        return rowUpdate;
+        return value;
     }
 
     //select user by id
-    public static Employee selectEmployee(int id) throws SQLException {
+    public Employee selectEmployee(int id) throws SQLException {
         Employee user=null;
         try(Connection connection=getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(select_user_by_id)){
@@ -119,7 +117,7 @@ public class EmployeeDAO {
 
     //select all users
 
-    public static List<Employee> selectAllEmployee() throws SQLException {
+    public List<Employee> selectAllEmployee() throws SQLException, NullPointerException {
         List<Employee> users=new ArrayList<>();
         try(Connection connection=getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(select_all_users))
@@ -134,7 +132,7 @@ public class EmployeeDAO {
                 String password=resultSet.getString("password");
                 String address=resultSet.getString("address");
                 String contact=resultSet.getString("contact");
-                users.add(new Employee(first_name,last_name,username,password,address,contact));
+                users.add(new Employee(id,first_name,last_name,username,password,address,contact));
             }
 
         }catch (Exception e){
@@ -145,14 +143,14 @@ public class EmployeeDAO {
 
     //Deleting the user
 
-    public Boolean deleteEmployee(int id) throws SQLException {
+    public boolean deleteEmployee(int id) throws SQLException {
         boolean rowDeleted;
         try(Connection connection=getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(delete_users)){
             preparedStatement.setInt(1,id);
             rowDeleted=preparedStatement.executeUpdate()>0;
         }
-
         return rowDeleted;
+
     }
 }
