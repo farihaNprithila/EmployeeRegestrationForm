@@ -25,14 +25,16 @@ public class AllEmployeeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-    private void listUser(HttpServletRequest request,HttpServletResponse response) throws SQLException, ServletException, IOException {
-        List<Employee> listUser =  employeeDAO.selectAllEmployee();
+        List<Employee> listUser = null;
+        try {
+            listUser = employeeDAO.selectAllEmployee();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println(listUser.toString());
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee-list.jsp");
         dispatcher.forward(request, response);
-    }
 
+    }
 }

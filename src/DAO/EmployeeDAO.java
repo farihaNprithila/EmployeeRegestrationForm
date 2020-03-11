@@ -17,7 +17,7 @@ public class EmployeeDAO {
     private static final String select_user_by_id="select id,first_name,last_name,username,password,address,contact from employee where id=?";
     private static final String select_all_users="select * from employee";
     private static final String delete_users="delete from employee where id = ?;";
-    private static final String update_users="update employee set first_name = ?, last_name =?, username =? password = ?, address =?, contact =? where id = ?;";
+    private static final String update_users="update employee set first_name =?, last_name =?, username =? password =?, address =?, contact =? where id =?;";
 
     /*public static void main(String [] args){
         Connection connection=getConnection();
@@ -75,7 +75,7 @@ public class EmployeeDAO {
     //for updating the data
 
     public boolean updateEmployee(Employee user)throws SQLException{
-        boolean value;
+        boolean value=true;
         try(Connection connection=getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(update_users)){
             preparedStatement.setString(1, user.getFirstName());
@@ -84,10 +84,11 @@ public class EmployeeDAO {
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, user.getAddress());
             preparedStatement.setString(6, user.getContact());
+            System.out.println(user.getFirstName());
             preparedStatement.setInt(7,user.getId());
-            value=preparedStatement.executeUpdate()>0;
+            preparedStatement.executeUpdate();
         }
-        return value;
+        return true;
     }
 
     //select user by id

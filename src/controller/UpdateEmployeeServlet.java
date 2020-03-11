@@ -25,10 +25,6 @@ public class UpdateEmployeeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-    }
-    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id=Integer.parseInt(request.getParameter("id"));
         String firstName=request.getParameter("firstName");
         String lastName=request.getParameter("lastName");
@@ -38,8 +34,17 @@ public class UpdateEmployeeServlet extends HttpServlet {
         String contact=request.getParameter("contact");
 
         Employee user=new Employee(id,firstName,lastName,username,password,address,contact);
-        employeeDAO.updateEmployee(user);
+        try {
+            employeeDAO.updateEmployee(user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         response.sendRedirect("all");
+
+
+
+    }
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
     }
 }

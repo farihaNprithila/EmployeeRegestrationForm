@@ -34,6 +34,7 @@ public class EditEmployeeServlet extends HttpServlet {
         int id=Integer.parseInt(request.getParameter("id"));
         Employee user=employeeDAO.selectEmployee(id);
         RequestDispatcher dispatcher=request.getRequestDispatcher("employee-add.jsp");
+
         request.setAttribute("user",user);
         dispatcher.forward(request,response);
 
