@@ -25,6 +25,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         int id=Integer.parseInt(request.getParameter("id"));
         String firstName=request.getParameter("firstName");
         String lastName=request.getParameter("lastName");
@@ -44,7 +45,5 @@ public class UpdateEmployeeServlet extends HttpServlet {
 
 
     }
-    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
-    }
 }

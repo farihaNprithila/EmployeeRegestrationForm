@@ -45,9 +45,20 @@
 
 
 
-                    <c:if test="${user != null}">
-                        <input type="hidden" name="id" value="<c:out value='${user.id}' />"  >
-                    </c:if>
+                        <caption>
+                            <h2>
+                                <c:if test="${user != null}">
+                                    Edit User
+                                </c:if>
+                                <c:if test="${user == null}">
+                                    Add New User
+                                </c:if>
+                            </h2>
+                        </caption>
+
+                        <c:if test="${user != null}">
+                            <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
+                        </c:if>
                     <fieldset class="form-group">
                         <label>User First Name</label> <input type="text"
                                                         value="<c:out value='${user.firstName}' />" class="form-control"
